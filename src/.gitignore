@@ -1,0 +1,4 @@
+.vscode/
+jarvis
+__pycache__/
+*.pyc
