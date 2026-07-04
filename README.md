@@ -1,6 +1,6 @@
 # Jarvis Sentinel
 
-An event-driven AI desk assistant built on Raspberry Pi using C++.
+An event-driven AI desk assistant built on Raspberry Pi using Python/C++.
 
 ## Planned Features
 
@@ -13,7 +13,7 @@ An event-driven AI desk assistant built on Raspberry Pi using C++.
 
 ## Tech Stack
 
-- C++
+- Python / C++
 - Raspberry Pi 4
 - CMake
 - Git
