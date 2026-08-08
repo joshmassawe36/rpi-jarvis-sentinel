@@ -4,3 +4,4 @@ __pycache__/
 jarvis
 build/src/__pycache__/
 .env
+.env
