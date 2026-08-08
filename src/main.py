@@ -1,5 +1,5 @@
 from fsm import JarvisFSM, State, Event
-from hardware import SimulatedHardware  # swap for RealHardware() later
+from hardware import SimulatedHardware, RealHardware 
 
 
 def run_jarvis_cycle(fsm: JarvisFSM, hardware) -> None:
@@ -27,7 +27,7 @@ def run_jarvis_cycle(fsm: JarvisFSM, hardware) -> None:
 
 def main():
     fsm = JarvisFSM()
-    hardware = SimulatedHardware()  # swap for RealHardware() later
+    hardware = RealHardware()
 
     print("Jarvis Sentinel")
     print("m = simulate motion")
@@ -36,12 +36,11 @@ def main():
     while True:
         print(f"\nCurrent state: {fsm.state.name}")
         command = input("Input: ").strip().lower()
-
+        
         if command == "q":
             break
         if command == "m":
             run_jarvis_cycle(fsm, hardware)
-
 
 if __name__ == "__main__":
     main()
