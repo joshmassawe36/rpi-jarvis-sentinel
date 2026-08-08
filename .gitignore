@@ -3,3 +3,4 @@ __pycache__/
 .vscode/
 jarvis
 build/src/__pycache__/
+.env
