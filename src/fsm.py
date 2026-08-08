@@ -12,6 +12,7 @@ class State(Enum):
 
 class Event(Enum):
     MOTION = auto()
+    MOTION_CONFIRMED = auto() # new state added
     CAPTURE_COMPLETE = auto()
     ANALYSIS_COMPLETE = auto()
     RESPONSE_COMPLETE = auto()
@@ -30,7 +31,11 @@ class JarvisFSM:
                 self.state = State.MOTION_DETECTED
 
         elif self.state == State.MOTION_DETECTED:
-            self.state = State.CAPTURE_IMAGE
+            # Previously this transitioned unconditionally, ignoring
+            # the event entirely. Now it requires MOTION_CONFIRMED,
+            # so every transition is driven by a specific, checked event.
+            if event == Event.MOTION_CONFIRMED:
+                self.state = State.CAPTURE_IMAGE
 
         elif self.state == State.CAPTURE_IMAGE:
             if event == Event.CAPTURE_COMPLETE:
@@ -50,6 +55,5 @@ class JarvisFSM:
 
         if old_state != self.state:
             print(f"{old_state.name} -> {self.state.name}")
-        
+
         return self.state
-    

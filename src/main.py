@@ -1,56 +1,33 @@
 from fsm import JarvisFSM, State, Event
-import time
+from hardware import SimulatedHardware  # swap for RealHardware() later
 
 
-def simulate_camera_capture():
-    print("Capturing image...")
-    time.sleep(1)
-    return Event.CAPTURE_COMPLETE
-
-
-def simulate_ai_analysis():
-    print("Analyzing scene...")
-    time.sleep(1)
-    return Event.ANALYSIS_COMPLETE
-
-
-def simulate_response():
-    print("Jarvis: Presence detected.")
-    time.sleep(1)
-    return Event.RESPONSE_COMPLETE
-
-
-def simulate_cooldown():
-    print("Cooling down...")
-    time.sleep(2)
-    return Event.TIMEOUT
-
-
-def run_jarvis_cycle(fsm):
+def run_jarvis_cycle(fsm: JarvisFSM, hardware) -> None:
     fsm.handle_event(Event.MOTION)
 
     if fsm.state == State.MOTION_DETECTED:
-        fsm.handle_event(Event.CAPTURE_COMPLETE)
+        fsm.handle_event(Event.MOTION_CONFIRMED)
 
     if fsm.state == State.CAPTURE_IMAGE:
-        event = simulate_camera_capture()
+        event = hardware.capture_image()
         fsm.handle_event(event)
 
     if fsm.state == State.ANALYZE_SCENE:
-        event = simulate_ai_analysis()
+        event = hardware.analyze_scene()
         fsm.handle_event(event)
 
     if fsm.state == State.RESPOND:
-        event = simulate_response()
+        event = hardware.respond()
         fsm.handle_event(event)
 
     if fsm.state == State.COOLDOWN:
-        event = simulate_cooldown()
+        event = hardware.cooldown()
         fsm.handle_event(event)
 
 
 def main():
     fsm = JarvisFSM()
+    hardware = SimulatedHardware()  # swap for RealHardware() later
 
     print("Jarvis Sentinel")
     print("m = simulate motion")
@@ -62,9 +39,8 @@ def main():
 
         if command == "q":
             break
-
         if command == "m":
-            run_jarvis_cycle(fsm)
+            run_jarvis_cycle(fsm, hardware)
 
 
 if __name__ == "__main__":
