@@ -1,6 +1,6 @@
 """
 Raw GPIO polling test - prints the live HIGH/LOW state of GPIO17 every
-second. Use this to sanity check wiring before trusting gpiozero's
+second. Sanity check wiring before trusting gpiozero's
 motion events.
 
 If OUT is wired correctly:
